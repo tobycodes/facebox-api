@@ -18,17 +18,14 @@ const entry = require('./controllers/entry');
 const app = express();
 const db = knex({
     client: 'pg',
-    connection: {
-      connectionString : process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false
-      }
+    connectionString : process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
     }
 });
 
 
 //MIDDLEWARES
-app.options('*', cors());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -41,11 +38,11 @@ app.get('/', (req,res) => {
     res.json('success');
 });
 
-app.post('/signin', signIn.handleSignIn(db, bcrypt));
-app.post('/register', register.handleRegister(db, bcrypt));
-app.get('/profile/:id', profile.handleProfile(db));
-app.post('/image', image.handleImageUrl);
-app.put('/entry', entry.handleEntryUpdate(db));
+app.post('/signin', cors(), signIn.handleSignIn(db, bcrypt));
+app.post('/register', cors(), register.handleRegister(db, bcrypt));
+app.get('/profile/:id', cors(), profile.handleProfile(db));
+app.post('/image', cors(), image.handleImageUrl);
+app.put('/entry', cors(), entry.handleEntryUpdate(db));
 
 
 
