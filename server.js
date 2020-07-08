@@ -4,7 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const knex = require('knex');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const cors = require('cors');
+
 
 const signIn = require('./controllers/signIn');
 const register = require('./controllers/register');
@@ -27,9 +28,11 @@ const db = knex({
 
 
 //MIDDLEWARES
+app.options('*', cors());
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use('/', createProxyMiddleware({ target: 'https://sheltered-lowlands-62768.herokuapp.com', changeOrigin: true }));
+
 
 
 
