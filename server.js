@@ -18,14 +18,17 @@ const entry = require('./controllers/entry');
 const app = express();
 const db = knex({
     client: 'pg',
-    connectionString : process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
+    connection: {
+      connectionString : process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false
+      }
     }
 });
 
 
 //MIDDLEWARES
+app.options('*', cors());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
