@@ -3,8 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const cors = require('cors');
 const knex = require('knex');
+const cors = require('cors');
 
 const signIn = require('./controllers/signIn');
 const register = require('./controllers/register');
